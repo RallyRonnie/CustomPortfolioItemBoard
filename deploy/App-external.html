@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Portfolio Item Board</title>
+
+    <script type="text/javascript" src="https://rally1.rallydev.com/apps/2.0/sdk.js"></script>
+
+    <script type="text/javascript">
+        Rally.onReady(function () {
+                Ext.define("PIBoard",{extend:"Rally.app.App",componentCls:"app",launch:function(){typeComboBox=this.add({xtype:"rallyportfolioitemtypecombobox",listeners:{change:function(combobox){piType=typeComboBox.getRecord().get("TypePath");var piFields=["PercentDoneByStoryPlanEstimate","Parent","Discussion"];0===typeComboBox.getRecord().get("Ordinal")&&piFields.push("UserStories"),this._doBoard(piType,piFields)},scope:this}})},_doBoard:function(pitype,piFields){this.piBoard&&this.piBoard.destroy(),this.addNew&&this.addNew.destroy(),this.addNew=this.add({xtype:"rallyaddnew",recordTypes:[pitype],ignoredRequiredFields:["Name","Project"],listeners:{create:function(addNew,record){}},showAddWithDetails:!0}),this.piBoard=this.add({xtype:"rallycardboard",types:pitype,attribute:"State",context:this.getContext(),enableRanking:!0,cardConfig:{editable:!0,showIconsAndHighlightBorder:!0,showReadyIcon:!0,showBlockedIcon:!0,showColorIcon:!0,showPlusIcon:!0,showGearIcon:!0,fields:piFields}})}});
+
+            Rally.launchApp('PIBoard', {
+                name:"Portfolio Item Board",
+	            parentRepos:""
+            });
+
+        });
+    </script>
+
+
+    <style type="text/css">
+        
+    </style>
+</head>
+<body>
+</body>
+</html>
